@@ -4,38 +4,53 @@ public class ShotgunScript : MonoBehaviour
 {
     public Camera cam;
 
-    public float Ammo;
+    private Transform tf;
 
-    public float ammoInMag;
+    public GameObject bulletPrefab;
+
+    private Vector3 shootPoint = new Vector3(0, 0, (float)0.04);
+
+    public float Ammo = 100;
+
+    public float ammoInMag = 10f;
 
     private float magSize = 10f;
-
-    public float ShotDeviation;
 
     private float BulletsPerShot = 4;
 
     public bool canShoot;
 
+    void Start()
+    {
+      tf = GetComponent<Transform>();
+    }
     // Start is called before the first frame update
     void Update()
     {
       if (Input.GetButtonDown("Fire1"))
       {
-        Shoot();
+        if (ammoInMag > BulletsPerShot)
+        {
+          for (int i = 0; i < BulletsPerShot; i++)
+          {
+            Shoot();
+          }
+        }
+        else
+        {
+          for (int i = 0; i < ammoInMag; i++)
+          {
+            Shoot();
+          }
+        }
       }
     }
 
     public void Shoot()
     {
-      RaycastHit hit;
-      if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
-      {
-        Debug.Log(hit);
-        if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-        {
-          hit.transform.gameObject.SendMessage("Die");
-        }
-      }
+      Instantiate(bulletPrefab, tf.position + shootPoint, tf.rotation);
+      Debug.Log("Pew!!");
+      ammoInMag -= 1;
     }
 
     void Reload()

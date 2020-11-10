@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class TestEnemy : MonoBehaviour
 {
-  public void Die()
+  public float Health = 30f;
+  public void TakeDamage(float damage)
   {
-    Destroy(gameObject);
+    Health -= damage;
+
+    if (Health < 0)
+    {
+      Destroy(gameObject);
+    }
   }
 }
