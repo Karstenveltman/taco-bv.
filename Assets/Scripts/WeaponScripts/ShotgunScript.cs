@@ -29,7 +29,7 @@ public class ShotgunScript : MonoBehaviour
     {
       if (Input.GetButtonDown("Fire1"))
       {
-        if (ammoInMag > BulletsPerShot)
+        if (ammoInMag >= BulletsPerShot)
         {
           for (int i = 0; i < BulletsPerShot; i++)
           {
@@ -44,11 +44,17 @@ public class ShotgunScript : MonoBehaviour
           }
         }
       }
+      if (Input.GetKeyDown(KeyCode.R))
+      {
+        Debug.Log("reload");
+      }
     }
 
-    public void Shoot()
+    void Shoot()
     {
-      Instantiate(bulletPrefab, tf.position + shootPoint, tf.rotation);
+      Vector3 deviationVec = new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), Random.Range(-5, 5));
+      Quaternion deviationQuat = Quaternion.Euler(deviationVec);
+      Instantiate(bulletPrefab, tf.position + shootPoint, tf.rotation * deviationQuat);
       Debug.Log("Pew!!");
       ammoInMag -= 1;
     }
