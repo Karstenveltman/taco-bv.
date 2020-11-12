@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    private float speed = 100f;
-    private float lifeTime = 50f;
+    private float speed = 70f;
+    private float lifeTime = 5f;
     private Transform tf;
     private Rigidbody rb;
     private Vector3 dir;

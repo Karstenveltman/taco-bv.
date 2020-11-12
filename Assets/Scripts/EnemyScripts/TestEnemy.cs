@@ -9,7 +9,9 @@ public class TestEnemy : MonoBehaviour
   {
     Health -= damage;
 
-    if (Health < 0)
+    Debug.Log(gameObject.name + " took damage. Health = " + Health);
+
+    if (Health <= 0)
     {
       Destroy(gameObject);
     }
